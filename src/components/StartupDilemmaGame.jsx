@@ -95,4 +95,50 @@ export default function StartupDilemmaGame() {
                 <Button
                   key={idx}
                   className="w-full"
-                  onClick={() =>
+                  onClick={() => handleChoice(choice)}
+                >
+                  {choice.label}
+                </Button>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      ) : (
+        <Card>
+          <CardContent className="space-y-4">
+            <h2 className="text-xl font-semibold">
+              {isGameOver()
+                ? "Spiel beendet – Du wurdest als CEO abgesetzt!"
+                : isWinner()
+                ? "🎉 Glückwunsch – Du bist CEO of the Year!"
+                : "Spiel beendet"}
+            </h2>
+            <p>Hier ist dein Entscheidungslog:</p>
+            <ul className="list-disc list-inside space-y-1">
+              {log.map((entry, idx) => (
+                <li key={idx}>
+                  <strong>{entry.round}</strong>: {entry.choice} →{" "}
+                  <em>{entry.effect}</em>
+                </li>
+              ))}
+            </ul>
+            <div>
+              <p>
+                <strong>Finanzen:</strong> {finance}
+              </p>
+              <p>
+                <strong>Ethik/Reputation:</strong> {ethics}
+              </p>
+              <p>
+                <strong>Team-Moral:</strong> {morale}
+              </p>
+            </div>
+            <Button className="mt-4" onClick={restartGame}>
+              🔁 Neustart
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
+}
